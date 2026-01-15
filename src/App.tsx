@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MobileContainer from './components/MobileContainer';
-import Landing from './pages/landing';
+import Landing from './pages/Landing';
 import LoginForm from './pages/LoginForm';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
