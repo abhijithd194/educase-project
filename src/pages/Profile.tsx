@@ -1,90 +1,53 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/ui/Button';
-import { LogOut, MapPin, Share2, MoreVertical, ArrowLeft as ArrowLeftIcon } from 'lucide-react';
-
-const Profile: React.FC = () => {
-    const navigate = useNavigate();
-
+import { Camera } from 'lucide-react';
+import { useParams } from 'react-router-dom';
+const Profile: React.FC= () => {
+    const {id}= useParams<{id: string}>()
+    console.log(id)
+    const user = JSON.parse(localStorage.getItem(id||"") || '{}')
     return (
-        <div className="h-full bg-gray-50">
-            {/* Header Image */}
-            <div className="h-48 bg-orange-500 relative rounded-b-[40px] shadow-lg overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1000&auto=format&fit=crop')] bg-cover bg-center opacity-50 mix-blend-overlay"></div>
-                <div className="absolute top-4 w-full flex justify-between px-6 text-white z-10">
-                    <button className="p-2 bg-white/20 backdrop-blur-md rounded-xl hover:bg-white/30 transition-colors">
-                        <ArrowLeftIcon className="w-5 h-5" onClick={() => navigate(-1)} />
-                    </button>
-                    <button className="p-2 bg-white/20 backdrop-blur-md rounded-xl hover:bg-white/30 transition-colors">
-                        <MoreVertical className="w-5 h-5" />
-                    </button>
-                </div>
+        <div className="h-full bg-[#f7f8f9] flex flex-col">
+            {/* Header */}
+            <div className="bg-white px-6 py-5 shadow-sm border-b border-gray-100">
+                <h1 className="text-lg font-bold text-gray-900">Account Settings</h1>
             </div>
 
-            <div className="px-6 -mt-16 pb-8 relative z-10">
-                <div className="flex flex-col items-center">
-                    {/* Avatar */}
-                    <div className="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden mb-4 bg-white relative">
+            {/* Profile Section */}
+            <div className="p-6 flex flex-col gap-6">
+
+                {/* User Info Row */}
+                <div className="flex items-start gap-4 mb-4">
+                    <div className="relative">
                         <img
-                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop"
+                            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
                             alt="Profile"
-                            className="w-full h-full object-cover"
+                            className="w-16 h-16 rounded-full object-cover"
                         />
-                    </div>
-
-                    <h2 className="text-2xl font-bold text-gray-900">Alex Davidson</h2>
-                    <p className="text-gray-500 font-medium">UI/UX Designer</p>
-
-                    {/* Stats */}
-                    <div className="flex items-center gap-8 mt-6 w-full justify-center">
-                        <div className="text-center">
-                            <p className="text-lg font-bold text-gray-900">120</p>
-                            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Reviews</p>
-                        </div>
-                        <div className="w-[1px] h-8 bg-gray-200"></div>
-                        <div className="text-center">
-                            <p className="text-lg font-bold text-gray-900">4.8</p>
-                            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Rating</p>
-                        </div>
-                        <div className="w-[1px] h-8 bg-gray-200"></div>
-                        <div className="text-center">
-                            <p className="text-lg font-bold text-gray-900">$45</p>
-                            <p className="text-xs text-gray-400 font-semibold uppercase tracking-wide">Hourly</p>
+                        <div className="absolute -bottom-1 -right-1 bg-[#6c25ff] p-1 rounded-full text-white">
+                            <Camera className="w-3 h-3" />
                         </div>
                     </div>
-
-                    {/* Actions */}
-                    <div className="flex gap-4 mt-8 w-full">
-                        <Button fullWidth className="bg-orange-500 shadow-orange-500/30">
-                            Contact me
-                        </Button>
-                        <Button variant="secondary" className="px-4">
-                            <Share2 className="w-5 h-5" />
-                        </Button>
+                    <div className="pt-2">
+                        <h2 className="text-base font-bold text-gray-900">{user.name}</h2>
+                        <p className="text-sm text-gray-500 font-medium">{user.email}</p>
                     </div>
-
-                    {/* About */}
-                    <div className="w-full mt-8 bg-white p-6 rounded-2xl shadow-sm">
-                        <h3 className="text-lg font-bold text-gray-900 mb-3">About Me</h3>
-                        <p className="text-gray-500 text-sm leading-relaxed">
-                            Passionate UI/UX designer with over 5 years of experience in creating user-centered digital products. I love turning complex problems into simple, beautiful, and intuitive designs.
-                        </p>
-
-                        <div className="flex items-center gap-2 mt-4 text-gray-400 text-sm font-medium">
-                            <MapPin className="w-4 h-4 text-orange-500" />
-                            <span>New York, USA</span>
-                        </div>
-                    </div>
-
-                    <div className="w-full mt-6">
-                        <Button variant="ghost" fullWidth className="text-red-500 hover:bg-red-50 hover:text-red-600" onClick={() => navigate('/')}>
-                            <LogOut className="w-5 h-5" />
-                            <span className="ml-2">Logout</span>
-                        </Button>
-                    </div>
-
                 </div>
+
+                {/* Description */}
+                <p className="text-sm text-gray-500 leading-relaxed border-b border-dashed border-gray-300 pb-8">
+                    Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
+                </p>
+
+                {/* Dotted Border Bottom Container for visual match */}
+                <div className="border-t border-dashed border-gray-300 mt-auto"></div>
+
             </div>
+
+            {/* Using flex-1 to push content down if needed or just empty space background */}
+            <div className="flex-1 bg-[#f7f8f9] border-t border-dashed border-gray-300 mx-6">
+                {/* This creates the bottom dashed line effect from the image */}
+            </div>
+
         </div>
     );
 };

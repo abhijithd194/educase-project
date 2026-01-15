@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm: React.FC = () => {
     const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        // Simulate login
-        navigate('/profile');
+        if (localStorage.getItem(email) !== null) {
+            const data = JSON.parse(localStorage.getItem(email) || '{}');
+            if (data.password === password) {
+                navigate(`/profile/${email}`);
+            }
+            else {
+                alert("Invalid password");
+            }
+        }
+        else {
+            alert("Invalid email");
+        }
     };
 
     return (
@@ -28,6 +40,8 @@ const LoginForm: React.FC = () => {
                         <legend className="text-xs text-[#6c25ff] px-1 -ml-1 font-medium">Email Address</legend>
                         <input
                             type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter email address"
                             className="w-full bg-transparent outline-none text-sm text-gray-900 font-medium placeholder:text-gray-400 placeholder:font-normal"
                         />
@@ -37,6 +51,8 @@ const LoginForm: React.FC = () => {
                         <legend className="text-xs text-[#6c25ff] px-1 -ml-1 font-medium">Password</legend>
                         <input
                             type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             placeholder="Enter password"
                             className="w-full bg-transparent outline-none text-sm text-gray-900 font-medium placeholder:text-gray-400 placeholder:font-normal"
                         />
